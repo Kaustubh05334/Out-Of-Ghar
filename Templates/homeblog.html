@@ -1,0 +1,1581 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Out Of Ghar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha256-UhQQ4fxEeABh4JrcmAJ1+16id/1dnlOEVCFOxDef9Lw=" crossorigin="anonymous" />
+
+
+    <!-- fontawesome kit id -->
+    <script src="https://kit.fontawesome.com/80548778d4.js" crossorigin="anonymous"></script>
+    <!-- Add jQuery and Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha256-pTxD+DSzIwmwhOqTFN+DB+nHjO4iAsbgfyFq5K5bcE0=" crossorigin="anonymous"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              cabinetGrotesk: "'Cabinet Grotesk', san-serif",
+            }
+          }
+        }
+      }
+    </script>
+    
+
+    <style>
+        /* Style for carousel container */
+      .carousel1 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        overflow: hidden;
+        margin: 20px auto;
+        width: 80%;
+        height: 300px;
+        position: relative;
+      }
+
+      /* Style for each card */
+      #crd {
+        
+        background-color: #ccc;
+        margin: 0 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      /* Style for active card */
+      #crd.active {
+        transform: scale(1.1);
+        z-index: 1;
+      }
+          
+    </style>
+    
+    <style>
+      body{
+        background: #F4F7FD;
+        margin-top:20px;
+    }
+    
+    .event-list .event-item {
+        padding: 1rem 1.9rem;
+        margin: 0 0.9375rem 1.875rem 0.9375rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+    }
+    
+    .event-list .event-item.featured {
+        border: 1.5px solid #68cbd7;
+    }
+    
+    .event-list .event-item .event-schedule {
+        color: #3c4142;
+        margin-bottom: 0.625rem;
+    }
+    
+    .event-list .event-item .event-schedule .event-icon {
+        stroke-width: 1px;
+        width: 1.125rem;
+        height: 1.125rem;
+        margin: 0.6875rem 1rem 0 0;
+    }
+    
+    .event-list .event-item .event-schedule .event-day {
+        font-size: 70px;
+        font-weight: 200;
+        margin-right: 1rem;
+        line-height: 100%;
+    }
+    
+    .event-list .event-item .event-schedule .event-month-time {
+        font-weight: 200;
+        font-size: 22px;
+        display: flex;
+        line-height: 118%;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .event-list .event-item .event-schedule .event-month-time span {
+        display: block;
+        text-transform: uppercase;
+    }
+    
+    .event-list .event-item .event-title {
+        display: block;
+        margin-bottom: 0.625rem;
+        font-weight: 300;
+        color: #3c4142;
+    }
+    
+    .event-list .event-item .event-title:hover {
+        color: #68cbd7;
+        text-decoration: none;
+    }
+    
+    .event-list .event-item .event-content {
+        color: #b1bac5;
+        margin-bottom: 0.625rem;
+        font-size: 12px;
+        font-weight: 300;
+    }
+    
+    .event-list .event-item .event-participants {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .event-list .event-item .event-participants .event-user {
+        width: 48px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+    }
+    
+    .event-list .event-item .event-participants .event-user .event-user-inital {
+        font-size: 13px;
+        line-height: 100%;
+    }
+    
+    .event-list .event-item .event-participants {
+        display: flex !important;
+    }
+    
+    .event-list .event-item .event-participants .event-user .event-user-pic {
+        width: 100%;
+        border-radius: 50%;
+    }
+    
+    .event-list .event-item .event-participants li + li {
+        margin-left: -10px;
+    }
+    
+    
+    .event-list .event-item .event-participants {
+        flex-direction: row !important;
+    }
+    .event-list .event-item .event-participants {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .bg-soft-primary {
+        background-color: #dce3fa;
+    }
+    
+    .bg-soft-danger {
+        background-color: #fedce0;
+    }
+    
+    .bg-soft-info {
+        background-color: #d7efff;
+    }
+    
+    .bg-soft-success {
+        background-color: #d1f6f2;
+    }
+    
+    .event-list .event-item .event-schedule, .event-list .event-item .event-participants{
+        display: flex !important;
+    }
+    
+    
+    .owl-prev {
+      width: 100px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      margin-left: 0;
+      display: block !important;
+      background-image: linear-gradient(to right, #F4F7FD, transparent) !important;
+    }
+    
+    .owl-prev .owl-nav-wrapper {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .owl-prev .owl-nav-wrapper svg, .owl-prev .owl-nav-wrapper i {
+      color: #ffffff;
+      width: 20px;
+      height: 20px;
+    }
+    
+    .owl-next {
+      width: 100px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block !important;
+      background-image: linear-gradient(to right, transparent, #F4F7FD) !important;
+    }
+    
+    .owl-next .owl-nav-wrapper {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+    }
+    
+    .owl-next .owl-nav-wrapper svg, .owl-next .owl-nav-wrapper i {
+      color: #ffffff;
+      width: 20px;
+      height: 20px;
+    }
+    
+    .owl-dots {
+      text-align: center;
+      margin-top: .5rem;
+    }
+    
+    .owl-dots .owl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background: #cbcbcb !important;
+      margin-right: 5px;
+      display: inline-block;
+    }
+    
+    .owl-dots .owl-dot.active {
+      background: #757575 !important;
+    }
+    
+    .text-primary, .task-list-wrapper .completed .remove {
+        color: #4e73e5 !important;
+    }
+    </style>
+</head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+
+          <a class="navbar-brand" href="#">Out Of Ghar</a>
+          <div class="text-left">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" size="50" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success me-4" type="submit">Search</button>
+              </form>
+          </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="text-right;">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0" >
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-regular fa-circle-user"></i>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="logout/">Logout</a></li>
+                  </ul>
+                </li>
+                {% else %}
+                <a class="nav-link" href="login/">Sign In</a>
+                {% endif %}
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid px-5">
+        <div class="row g-0 mt-5 px-5" style="margin-left: 100px;margin-right:100px">
+            <h2 style="margin-right: 80px;" >When You Go Out Of Ghar</h2>
+    
+            <div class="col-3">
+                <div class="card mb-3" style="max-width: 240px;max-height: 150px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" style="width: 100px;height:150px;" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <b class="card-title">Mindful retreats</b>
+                      <small class="card-text">Lorem, ipsum dolor sit amet </small>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+                <div class="card mb-3" style="max-width: 240px;max-height:150px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/965/883/624/manga-one-piece-wallpaper-preview.jpg" style="width: 100px;height:150px;" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <b class="card-title">Mindful retreats</b>
+                      <small class="card-text">Lorem, ipsum dolor sit amet </small>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+                <div class="card mb-3" style="max-width: 240px;max-height:150px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" style="width: 100px;height:150px;" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <b class="card-title">Mindful retreats</b>
+                      <small class="card-text">Lorem, ipsum dolor sit amet </small>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+                <div class="card mb-3" style="max-width: 240px;max-height:150px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/384/818/513/himalayas-mountains-landscape-nature-wallpaper-preview.jpg" style="width: 100px;height:150px;" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <b class="card-title">Mindful retreats</b>
+                      <small class="card-text">Lorem, ipsum dolor sit amet </small>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-0 mt-2 px-5">
+            <h3 class="px-5">In the Spotlight: Partnerships</h3>
+            <div class="carousel1">
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="card" id="crd" style="width: 16rem;">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/142/751/831/landscape-anime-digital-art-fantasy-art-wallpaper-preview.jpg" style="height: 150px;width:255px;" alt="Card image">
+
+                  <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                  </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="card" id="crd" style="width: 16rem;">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/291/819/697/illustration-city-anime-painting-wallpaper-preview.jpg" style="height: 150px;width:255px;" alt="Card image">
+
+                  <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                  </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="card" id="crd" style="width: 16rem;">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" style="height: 150px;width:255px;" alt="Card image">
+
+                  <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                  </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="card" id="crd" style="width: 16rem;">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/764/505/66/baby-groot-4k-hd-superheroes-wallpaper-preview.jpg" style="height: 150px;width:255px;" alt="Card image">
+
+                  <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                  </div>
+                    </div>
+                  </div>
+                
+                
+            
+                
+                
+                
+                
+              </div>
+              
+                
+            
+                
+              
+          </div>
+          <div>
+            <div id="carouselExampleDark" class="carousel carousel-dark slide px-5 mt-5 mb-5">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/302/487/746/windows-10-windows-10x-windows-11-minimalism-material-minimal-hd-wallpaper-preview.jpg" style="height: 500px; width: 300px" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5>First slide label</h5>
+                      <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item" data-bs-interval="2000">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/559/697/150/windows-10-windows-10x-windows-11-minimalism-material-minimal-hd-wallpaper-preview.jpg" style="height: 500px; width: 300px" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5>Second slide label</h5>
+                      <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/662/910/457/minimalism-simple-background-quote-motivational-wallpaper-preview.jpg" style="height: 500px; width: 300px" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5>Third slide label</h5>
+                      <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+          </div>
+          <div>
+            <div class="row g-0 px-5 mb-5">
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                        <div class="card-text">
+                          <h2>Card Title 1</h2>
+                          <p>This is some sample text for the first card.</p>
+                        </div>
+                      </div>
+                      
+                </div>
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                        <div class="card-text">
+                          <h2>Card Title 2</h2>
+                          <p>This is some sample text for the second card.</p>
+                        </div>
+                      </div>
+                      
+                </div>
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                        <div class="card-text">
+                          <h2>Card Title 3</h2>
+                          <p>This is some sample text for the third card.</p>
+                        </div>
+                      </div>
+                      
+                </div>
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                        <div class="card-text">
+                          <h2>Card Title 4</h2>
+                          <p>This is some sample text for the fourth card.</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            <div class="row g-0 px-5 mb-5">
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                        <div class="card-text">
+                          <h2>Card Title 1</h2>
+                          <p>This is some sample text for the first card.</p>
+                        </div>
+                      </div>
+                      
+                </div>
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                        <div class="card-text">
+                          <h2>Card Title 2</h2>
+                          <p>This is some sample text for the second card.</p>
+                        </div>
+                      </div>
+                      
+                </div>
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                        <div class="card-text">
+                          <h2>Card Title 3</h2>
+                          <p>This is some sample text for the third card.</p>
+                        </div>
+                      </div>
+                      
+                </div>
+                <div class="col-3">
+                    <div class="card m-2">
+                        <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                        <div class="card-text">
+                          <h2>Card Title 4</h2>
+                          <p>This is some sample text for the fourth card.</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            <div class="row g-0 px-5 mb-5">
+              <div class="card mb-3">
+                <img src="https://images5.alphacoders.com/111/1119317.jpg" class="card-img-top" alt="..." style="height: 332px;width: 1520px;">
+                
+              </div>
+              
+          </div>
+          <div class="row g-0 px-5 mb-5">
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                    <div class="card-text">
+                      <h2>Card Title 1</h2>
+                      <p>This is some sample text for the first card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                    <div class="card-text">
+                      <h2>Card Title 2</h2>
+                      <p>This is some sample text for the second card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                    <div class="card-text">
+                      <h2>Card Title 3</h2>
+                      <p>This is some sample text for the third card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                    <div class="card-text">
+                      <h2>Card Title 4</h2>
+                      <p>This is some sample text for the fourth card.</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="row g-0 px-5 mb-5">
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                    <div class="card-text">
+                      <h2>Card Title 1</h2>
+                      <p>This is some sample text for the first card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                    <div class="card-text">
+                      <h2>Card Title 2</h2>
+                      <p>This is some sample text for the second card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                    <div class="card-text">
+                      <h2>Card Title 3</h2>
+                      <p>This is some sample text for the third card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                    <div class="card-text">
+                      <h2>Card Title 4</h2>
+                      <p>This is some sample text for the fourth card.</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+          
+          
+          <div class="row g-0 px-5 mb-5">
+            <h2>Exclusively Curated: Out Of Ghar's Mindful Retreats</h2>
+
+            <div class="container mt-5">
+              <div class="row">
+                  <div class="col-12">
+                      <div id="events" class="event-list owl-carousel owl-loaded owl-drag">
+                          <div class="owl-stage-outer">
+                              <div class="owl-stage">
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">12</span>
+                                              <div class="event-month-time">
+                                                  <span>nov</span>
+                                                  <span>13:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Conference meeting</a>
+                                          <p class="event-content">ERP system conference in Canada team</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Tommy C</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Alison G</b>">
+                                                  <span class="event-user-inital text-primary">AG</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Brad P</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Saun K</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+40</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item featured">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">20</span>
+                                              <div class="event-month-time">
+                                                  <span>nov</span>
+                                                  <span>18:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Cocktail party</a>
+                                          <p class="event-content">Cocktail party with +One management</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Keith J</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Massi J</b>">
+                                                  <span class="event-user-inital text-primary">MS</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Lex L</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Sam R</b>">
+                                                  <span class="event-user-inital text-danger">SR</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+99</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">30</span>
+                                              <div class="event-month-time">
+                                                  <span>dec</span>
+                                                  <span>22:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Review house infra</a>
+                                          <p class="event-content">Invitation from Axiom Infra Inc. for project</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Antonio J</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Ronald M</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Lucy P</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Sam W</b>">
+                                                  <span class="event-user-inital text-danger">SW</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+60</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">8</span>
+                                              <div class="event-month-time">
+                                                  <span>jan</span>
+                                                  <span>15:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Dinner Meet</a>
+                                          <p class="event-content">Dinner with Microsoft chief managers</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user bg-soft-success" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Alex K</b>">
+                                                  <span class="event-user-inital text-success">AK</span>
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Don Jasua</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-warning" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Becka Jasua</b>">
+                                                  <span class="event-user-inital text-warning">BC</span>
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Max C</b>">
+                                                  <span class="event-user-inital text-danger">MC</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+80</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item active" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">28</span>
+                                              <div class="event-month-time">
+                                                  <span>oct</span>
+                                                  <span>20:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Hire Developer</a>
+                                          <p class="event-content">Meeting is scheduled to hire developer</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user bg-soft-success" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>Camron D</b>">
+                                                  <span class="event-user-inital text-success">CD</span>
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>Pam A</b>">
+                                                  <span class="event-user-inital text-primary">PA</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>William S</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>Ron M</b>">
+                                                  <span class="event-user-inital text-danger">RM</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+30</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item active" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">12</span>
+                                              <div class="event-month-time">
+                                                  <span>nov</span>
+                                                  <span>13:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Conference meeting</a>
+                                          <p class="event-content">ERP system conference in Canada team</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Tommy C</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Alison G</b>">
+                                                  <span class="event-user-inital text-primary">AG</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Brad P</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Saun K</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+40</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item active" style="width: 374.5px;">
+                                      <div class="event-item featured">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">20</span>
+                                              <div class="event-month-time">
+                                                  <span>nov</span>
+                                                  <span>18:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Cocktail party</a>
+                                          <p class="event-content">Cocktail party with +One management</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Keith J</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Massi J</b>">
+                                                  <span class="event-user-inital text-primary">MS</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Lex L</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Sam R</b>">
+                                                  <span class="event-user-inital text-danger">SR</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+99</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item active" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">30</span>
+                                              <div class="event-month-time">
+                                                  <span>dec</span>
+                                                  <span>22:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Review house infra</a>
+                                          <p class="event-content">Invitation from Axiom Infra Inc. for project</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Antonio J</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Ronald M</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Lucy P</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Sam W</b>">
+                                                  <span class="event-user-inital text-danger">SW</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+60</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">8</span>
+                                              <div class="event-month-time">
+                                                  <span>jan</span>
+                                                  <span>15:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Dinner Meet</a>
+                                          <p class="event-content">Dinner with Microsoft chief managers</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user bg-soft-success" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Alex K</b>">
+                                                  <span class="event-user-inital text-success">AK</span>
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Don Jasua</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-warning" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Becka Jasua</b>">
+                                                  <span class="event-user-inital text-warning">BC</span>
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Max C</b>">
+                                                  <span class="event-user-inital text-danger">MC</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+80</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">28</span>
+                                              <div class="event-month-time">
+                                                  <span>oct</span>
+                                                  <span>20:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Hire Developer</a>
+                                          <p class="event-content">Meeting is scheduled to hire developer</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user bg-soft-success" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>Camron D</b>">
+                                                  <span class="event-user-inital text-success">CD</span>
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>Pam A</b>">
+                                                  <span class="event-user-inital text-primary">PA</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>William S</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-skin-class="tooltip-base" data-html="true" data-placement="top" title="" data-original-title="<b>Ron M</b>">
+                                                  <span class="event-user-inital text-danger">RM</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+30</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">12</span>
+                                              <div class="event-month-time">
+                                                  <span>nov</span>
+                                                  <span>13:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Conference meeting</a>
+                                          <p class="event-content">ERP system conference in Canada team</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Tommy C</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Alison G</b>">
+                                                  <span class="event-user-inital text-primary">AG</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Brad P</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Saun K</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+40</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item featured">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">20</span>
+                                              <div class="event-month-time">
+                                                  <span>nov</span>
+                                                  <span>18:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Cocktail party</a>
+                                          <p class="event-content">Cocktail party with +One management</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Keith J</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-primary" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Massi J</b>">
+                                                  <span class="event-user-inital text-primary">MS</span>
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Lex L</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Sam R</b>">
+                                                  <span class="event-user-inital text-danger">SR</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+99</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="owl-item cloned" style="width: 374.5px;">
+                                      <div class="event-item">
+                                          <div class="event-schedule">
+                                              <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  width="24"
+                                                  height="24"
+                                                  viewBox="0 0 24 24"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  class="feather feather-calendar event-icon">
+                                                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                                              </svg>
+                                              <span class="event-day">30</span>
+                                              <div class="event-month-time">
+                                                  <span>dec</span>
+                                                  <span>22:00</span>
+                                              </div>
+                                          </div>
+                                          <a href="#" class="event-title">Review house infra</a>
+                                          <p class="event-content">Invitation from Axiom Infra Inc. for project</p>
+                                          <ul class="event-participants">
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Antonio J</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Ronald M</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Lucy P</b>">
+                                                  <img class="event-user-pic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Pic" />
+                                              </li>
+                                              <li class="event-user bg-soft-danger" data-toggle="tooltip" data-placement="top" data-skin-class="tooltip-base" data-html="true" title="" data-original-title="<b>Sam W</b>">
+                                                  <span class="event-user-inital text-danger">SW</span>
+                                              </li>
+                                              <li class="event-user bg-soft-info" data-original-title="" title="">
+                                                  <span class="event-user-inital text-dark">+60</span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="owl-nav">
+                              <button type="button" role="presentation" class="owl-prev">
+                                  <div class="owl-nav-wrapper bg-soft-primary">
+                                      <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          class="feather feather-chevron-left text-primary">
+                                          <polyline points="15 18 9 12 15 6"></polyline>
+                                      </svg>
+                                  </div>
+                              </button>
+                              <button type="button" role="presentation" class="owl-next">
+                                  <div class="owl-nav-wrapper bg-soft-primary">
+                                      <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          class="feather feather-chevron-right text-primary">
+                                          <polyline points="9 18 15 12 9 6"></polyline>
+                                      </svg>
+                                  </div>
+                              </button>
+                          </div>
+                          <div class="owl-dots disabled"></div>
+                      </div>
+                  </div>
+              </div>
+              </div>
+            
+            
+          </div>
+          <div class="row g-0 px-5 mb-5">
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                    <div class="card-text">
+                      <h2>Card Title 1</h2>
+                      <p>This is some sample text for the first card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                    <div class="card-text">
+                      <h2>Card Title 2</h2>
+                      <p>This is some sample text for the second card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                    <div class="card-text">
+                      <h2>Card Title 3</h2>
+                      <p>This is some sample text for the third card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                    <div class="card-text">
+                      <h2>Card Title 4</h2>
+                      <p>This is some sample text for the fourth card.</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="row g-0 px-5 mb-5">
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                    <div class="card-text">
+                      <h2>Card Title 1</h2>
+                      <p>This is some sample text for the first card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                    <div class="card-text">
+                      <h2>Card Title 2</h2>
+                      <p>This is some sample text for the second card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                    <div class="card-text">
+                      <h2>Card Title 3</h2>
+                      <p>This is some sample text for the third card.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="col-3">
+                <div class="card m-2">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                    <div class="card-text">
+                      <h2>Card Title 4</h2>
+                      <p>This is some sample text for the fourth card.</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="row g-0 px-5 mb-5">
+            <div class="card mb-3">
+              <img src="https://images5.alphacoders.com/111/1119317.jpg" class="card-img-top" alt="..." style="height: 332px;width: 1520px;">
+              
+            </div>
+            
+        </div>
+        <div class="row g-0 px-5 mb-5">
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                  <div class="card-text">
+                    <h2>Card Title 1</h2>
+                    <p>This is some sample text for the first card.</p>
+                  </div>
+                </div>
+                
+          </div>
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                  <div class="card-text">
+                    <h2>Card Title 2</h2>
+                    <p>This is some sample text for the second card.</p>
+                  </div>
+                </div>
+                
+          </div>
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                  <div class="card-text">
+                    <h2>Card Title 3</h2>
+                    <p>This is some sample text for the third card.</p>
+                  </div>
+                </div>
+                
+          </div>
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                  <div class="card-text">
+                    <h2>Card Title 4</h2>
+                    <p>This is some sample text for the fourth card.</p>
+                  </div>
+              </div>
+          </div>
+        </div>
+      <div class="row g-0 px-5 mb-5">
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg" alt="Image 1">
+                  <div class="card-text">
+                    <h2>Card Title 1</h2>
+                    <p>This is some sample text for the first card.</p>
+                  </div>
+                </div>
+                
+          </div>
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 2">
+                  <div class="card-text">
+                    <h2>Card Title 2</h2>
+                    <p>This is some sample text for the second card.</p>
+                  </div>
+                </div>
+                
+          </div>
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg" alt="Image 3">
+                  <div class="card-text">
+                    <h2>Card Title 3</h2>
+                    <p>This is some sample text for the third card.</p>
+                  </div>
+                </div>
+                
+          </div>
+          <div class="col-3">
+              <div class="card m-2">
+                  <img src="https://c4.wallpaperflare.com/wallpaper/967/867/776/abstract-brain-science-artwork-wallpaper-preview.jpg" alt="Image 4">
+                  <div class="card-text">
+                    <h2>Card Title 4</h2>
+                    <p>This is some sample text for the fourth card.</p>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row g-0 px-5 mb-5">
+          <h2>Book these Amazing Tour Packages Curated for you</h2>
+          
+        </div>
+      </div>
+    
+      
+      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script>
+        const cards = document.querySelectorAll('#crd');
+        let activeCard = 0;
+  
+        function rotateCards() {
+          // Set the current card as inactive
+          cards[activeCard].classList.remove('active');
+  
+          // Move to the next card
+          activeCard++;
+  
+          // If we've gone past the last card, loop back to the first card
+          if (activeCard === cards.length) {
+            activeCard = 0;
+          }
+  
+          // Set the new card as active
+          cards[activeCard].classList.add('active');
+        }
+  
+        // Start rotating the cards every 3 seconds
+        setInterval(rotateCards, 1000);
+
+
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('#myCarousel').carousel({
+          interval: 3000,
+          wrap: true,
+          keyboard: true
+        });
+        
+        $('.carousel-control-prev').click(function() {
+          $('#myCarousel').carousel('prev');
+        });
+        
+        $('.carousel-control-next').click(function() {
+          $('#myCarousel').carousel('next');
+        });
+      });
+      
+    </script>
+    <script>
+      (function($) {
+        'use strict';
+        $(function () {
+            //Event carousel
+            $("#events").owlCarousel({
+                loop:true,
+                margin:0,
+                autoPlay: 3000,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    768:{
+                        items:2
+                    },
+                    979:{
+                        items:3
+                    },
+                    1199:{
+                        items:4
+                    }
+                },
+                singleItem : false,
+                dots: false,
+                nav: true,
+                navText : ["",""]
+            });
+            $(".btn-event-show").collapse();
+            //Events: Tooltip
+            $('.event-user').tooltip({ boundary: 'window' });
+            feather.replace();
+        });
+    })(jQuery); 
+    </script>
+</body>
+</html>
