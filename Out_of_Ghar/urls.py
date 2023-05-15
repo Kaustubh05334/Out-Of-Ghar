@@ -26,7 +26,5 @@ urlpatterns = [
     path('',homepage,name='home'),
 
     #accounts
-    path('login/',login_page),
-    path('register/',register_user),
-    path('logout/',logout_page),
+    path('accounts/',include('accounts.urls'))
 ]

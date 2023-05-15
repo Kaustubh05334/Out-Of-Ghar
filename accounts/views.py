@@ -33,7 +33,7 @@ def register_user(request):
             user = User.objects.create_user(username=username,email=email,first_name=f_name,last_name=l_name,password=password)
             profile = Profile.objects.create_profile(username=username,mobile_number=number)
             user.save()
-            
+            login(request,user)
             return redirect('/')
         else:
             return render(request,'accounts/register.html',{'error':'Password do not match','form':CreateUserForm})
