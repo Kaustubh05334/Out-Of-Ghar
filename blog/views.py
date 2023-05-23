@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect,reverse
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import BlogPostForm
 from .models import BlogPost,SubBlogPost
-from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your views here.
 def blogPostPage(request):
     if request.method == 'POST':
@@ -29,11 +29,12 @@ def blogPostPage(request):
                 sb=SubBlogPost(subheading=arrSH[i],location=arrSL[i],image=arrSI[i],text=arrST[i])
                 sb.save()
                 b1.sub_posts.add(sb)
-            url = reverse('home')
+            url = reverse('blog_details', kwargs={'blog_id': b1.id})
             return redirect(url)
      
     else:
         return render(request,'blog/blogPost.html',{'form':BlogPostForm})
     
-def preview_blog(request,id):
-    pass
+def preview_blog(request,blog_id):
+    blog = get_object_or_404(BlogPost,id=blog_id)
+    return render(request,'blog/blogPreview.html',{'blog':blog})
