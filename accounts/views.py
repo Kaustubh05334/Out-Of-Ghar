@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
 from .forms import LoginForm,CreateUserForm
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.models import User,auth
@@ -11,7 +11,8 @@ def login_page(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            url = reverse('home')
+            return redirect(url)
         else:
             return render(request, 'accounts/login.html', {'error': 'Invalid credentials','form':LoginForm})
         
@@ -31,10 +32,11 @@ def register_user(request):
             if User.objects.filter(username=username).exists():
                 return render(request,'accounts/register.html',{'error':'Username Already Taken','form':CreateUserForm})
             user = User.objects.create_user(username=username,email=email,first_name=f_name,last_name=l_name,password=password)
-            profile = Profile.objects.create_profile(username=username,mobile_number=number)
+            profile = Profile.objects.create_profile(user=user,mobile_number=number)
             user.save()
+            profile.save()
             login(request,user)
-            return redirect('/')
+            return redirect(reverse('home'))
         else:
             return render(request,'accounts/register.html',{'error':'Password do not match','form':CreateUserForm})
     else:
@@ -42,4 +44,4 @@ def register_user(request):
         
 def logout_page(request):
     logout(request)
-    return redirect('/')
+    return redirect(reverse('home'))

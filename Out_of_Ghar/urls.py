@@ -17,7 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from .views import homepage
-from accounts.views import login_page,register_user,logout_page
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -26,5 +25,11 @@ urlpatterns = [
     path('',homepage,name='home'),
 
     #accounts
-    path('accounts/',include('accounts.urls'))
+    path('accounts/',include('accounts.urls')),
+
+    #blog
+    path('blog/',include('blog.urls')),
+
+    #userProfile
+    path('userProfile/',include('userProfile.urls'))
 ]
