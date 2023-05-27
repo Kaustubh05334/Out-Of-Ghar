@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Profile</title>
+    <style>
+        /* Custom styles */
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 500px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        img.profile-image {
+            max-width: 200px;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        ul.messages {
+            margin-top: 20px;
+            list-style-type: none;
+        }
+
+        ul.messages li {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Profile Page</h1>
+
+        <h2>Welcome, {{ profile.user.username }}</h2>
+
+        <h3>Edit Profile</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Instagram Link -->
+            <div class="form-group">
+                <label for="instagram_link">Instagram Link:</label>
+                <input type="url" class="form-control" name="instagram_link"
+                    value="{{ profile.instagram_link|default:'' }}">
+            </div>
+
+            <!-- Profile Picture -->
+            
+            <div class="form-group">
+                <label for="profile_pic">Profile Picture:</label>
+                <input type="file" class="form-control-file" name="profile_image"
+                    value="{{ profile.profile_image|default:'' }}">
+                    {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="Profile Picture" class="profile-image">
+                    {% endif %}
+            </div>
+            
+
+            <!-- Facebook Link -->
+            <div class="form-group">
+                <label for="facebook_link">Facebook Link:</label>
+                <input type='url' class="form-control" name="facebook_link"
+                    value="{{ profile.facebook_link|default:'' }}">
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="form-group">
+                <label for="mobile_number">Mobile Number:</label>
+                <input type="number" class="form-control" name="mobile_number"
+                    value="{{ profile.mobile_number|default:'' }}">
+            </div>
+
+            <!-- User Bio -->
+            <div class="form-group">
+                <label for="user_bio">User Bio:</label>
+                <textarea class="form-control" name="user_bio">{{ profile.user_bio|default:'' }}</textarea>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Update Profile">
+        </form>
+
+        
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

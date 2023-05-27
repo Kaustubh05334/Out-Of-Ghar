@@ -32,8 +32,9 @@ def register_user(request):
             if User.objects.filter(username=username).exists():
                 return render(request,'accounts/register.html',{'error':'Username Already Taken','form':CreateUserForm})
             user = User.objects.create_user(username=username,email=email,first_name=f_name,last_name=l_name,password=password)
-            profile = Profile.objects.create_profile(user=user,mobile_number=number)
             user.save()
+            profile = Profile.objects.create_profile(user=user,mobile_number=number)
+            
             profile.save()
             login(request,user)
             return redirect(reverse('home'))

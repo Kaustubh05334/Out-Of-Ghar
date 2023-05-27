@@ -1,12 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>User Profile</title>
+    <style>
+        /* Custom styles */
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .profile-card {
+            max-width: 500px;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+
+        .profile-card h2 {
+            margin-top: 0;
+        }
+
+        .profile-card p {
+            margin-bottom: 5px;
+        }
+
+        .profile-card img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .edit-link {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* Center align the blog section */
+        .blog-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blog-card {
+            max-width: 500px;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
-    this is the profile page
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Box -->
+                <div class="profile-card">
+                    <h2>{{ profile.user.username }}</h2>
+                    <p><strong>Mobile Number:</strong> {{ profile.mobile_number }}</p>
+                    <p><strong>Bio:</strong> {{ profile.user_bio }}</p>
+                    <p><strong>Instagram:</strong> <a href="{{ profile.instagram_link }}">Insta</a></p>
+                    <p><strong>Facebook:</strong> <a href="{{ profile.facebook_link }}">Fb</a></p>
+                    {% if profile.profile_image %}
+                    <p>Profile Pic: <img src="{{ profile.profile_image.url }}" alt="Profile Picture"></p> 
+                    {% endif %}
+                    <a href="{% url 'profile_page' %}" class="btn btn-primary">Edit Profile</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <!-- Blog Details -->
+                <div class="blog-section">
+                    {% for blog_post in blog_posts %}
+                    <div class="blog-card">
+                        
+                        <h3>{{ blog_post.title }}</h3>
+                        <p>{{ blog_post.content|truncatewords:30 }}</p>
+                        <p><strong>Location:</strong> {{ blog_post.location }}</p>
+                        <p><strong>Created at:</strong> {{ blog_post.created_at }}</p>
+                        <!-- Display other relevant information from the BlogPost model -->
+                        <a href="{% url 'blog_details' blog_post.id %}" class="btn btn-primary">Read More</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional, if you need to use Bootstrap components) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>

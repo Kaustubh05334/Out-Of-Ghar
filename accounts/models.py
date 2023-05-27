@@ -14,7 +14,7 @@ class Profile(models.Model):
     user_bio = models.TextField(max_length=50,blank=True)
     instagram_link = models.URLField(max_length=50,blank=True)
     facebook_link = models.URLField(max_length=50,blank=True)
-    profile_image = models.ImageField(upload_to='profile_pic/')
+    profile_image = models.ImageField(upload_to='profile_image/',default="",blank=True)
 
     objects = ProfileManager()
 
