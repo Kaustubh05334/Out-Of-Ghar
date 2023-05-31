@@ -32,7 +32,7 @@
     {% if error %}
     <h4>{{error}}</h4>
     {% endif %}
-    <form method="post">
+    <form method="post" enctype="multipart/form-data"> 
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save and Preview</button>
