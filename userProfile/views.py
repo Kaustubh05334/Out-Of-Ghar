@@ -38,5 +38,5 @@ def profile_page(request):
 def profile_view(request):
     user = request.user
     profile = Profile.objects.get(user=user)
-    blog_posts = BlogPost.objects.filter(user=user)
+    blog_posts = BlogPost.objects.filter(user=user,status=1)
     return render(request, 'userProfile/profile.html', {'blog_posts': blog_posts,'profile': profile})
