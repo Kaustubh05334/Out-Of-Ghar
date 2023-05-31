@@ -72,3 +72,27 @@ class BlogPostForm(forms.Form):
     subloc10 = forms.CharField(label='Location',max_length=50,widget=forms.TextInput(attrs={'class':'inpsubloc','name':'subloc10'}),required=False)
     subimage10 = forms.ImageField(validators=[validate_image_size],widget=forms.ClearableFileInput(attrs={'class': 'image','name':'subimage10'}),required=False)
     subtext10 = forms.CharField(label='Content',widget=forms.Textarea(attrs={'class':'inpsubtext','name':'subtext10'}),required=False)
+
+
+class CommentForm(forms.Form):
+    content = forms.CharField(label ="", widget = forms.Textarea(
+    attrs ={
+        'class':'form-control',
+        'placeholder':'Comment here !',
+        'rows':4,
+        'cols':50
+    }))
+
+class AdminCommentForm(forms.Form):
+    CHOICES = [
+        ('Approve', 'Approve'),
+        ('Reject', 'Reject'),
+    ]
+    status = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+    content = forms.CharField(label ="",required=False, widget = forms.Textarea(
+    attrs ={
+        'class':'form-control',
+        'placeholder':'Comment here !',
+        'rows':4,
+        'cols':50,
+    }))

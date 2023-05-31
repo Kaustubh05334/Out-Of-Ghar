@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Details</title>
+</head>
+<body>
+    <div style="border-style: solid; padding: 5px; border-radius:5px; margin:auto; width:50%;">
+        <h1>{{ blog.title }}</h1>
+        <h3 style="color:blue;">{{ blog.location }}</h3>
+        <img style="width:100%" src="{{ blog.thumbnail.url }}" alt="My Image">
+        <p>{{ blog.content }}</p>
+        {% for subpost in blog.sub_posts.all %}
+        {% if subpost.subheading %}
+        <h2>{{ subpost.subheading }}</h2>
+        {% endif %}
+        {% if subpost.location %}
+        <h4 style="color:blue;">{{ subpost.location }}</h4>
+        {% endif %}
+        {% if subpost.image %}
+        <img style="width:100%" src="{{ subpost.image.url }}" alt="My Image">
+        {% endif %}
+        {% if subpost.text %}
+        <p>{{ subpost.text }}</p>
+        {% endif %}
+        {% endfor %}
+        <form method='post'>
+            {% csrf_token %}
+            {% if blog.status %}
+                {{form.as_p}}
+            {% else %}
+                {% if user.is_superuser %}
+                    {{form.as_p}}
+                {% endif %}
+            {% endif %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
