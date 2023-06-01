@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 from re import sub
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import BlogPostForm
 from .models import BlogPost,SubBlogPost
+=======
+from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
+from .forms import BlogPostForm,CommentForm,AdminCommentForm
+from .models import BlogPost,SubBlogPost,AdminComment
+>>>>>>> upstream/main
 from django.urls import reverse
 # Create your views here.
 def blogPostPage(request):
@@ -34,10 +40,13 @@ def blogPostPage(request):
             return redirect(url)
     else:
         return render(request,'blog/blogPost.html',{'form':BlogPostForm})
+<<<<<<< HEAD
     
 
 
 from django.core.files.base import ContentFile
+=======
+>>>>>>> upstream/main
 
 def preview_blog(request, blog_id):
     blog = get_object_or_404(BlogPost, id=blog_id)
@@ -56,7 +65,11 @@ def preview_blog(request, blog_id):
         if thumbnail:
             # Handle thumbnail file upload
             blog.thumbnail.save(thumbnail.name, thumbnail)
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> upstream/main
         blog.save()
 
         for sub_post in sub_posts:
@@ -80,5 +93,29 @@ def preview_blog(request, blog_id):
     return render(request, 'blog/blogPreview.html', {'blog': blog, 'sub_posts': sub_posts})
 
 
+<<<<<<< HEAD
 def blog_details(request):
     return render(request, 'blog/blogDetails.html')
+=======
+def blog_details(request,blog_id):
+    blog= get_object_or_404(BlogPost,id=blog_id)
+    if request.method=='POST':
+        form1=AdminCommentForm(request.POST)
+        form2=CommentForm(request.POST)
+        if form1.is_valid():
+            status = form1.cleaned_data['status']
+            content = form1.cleaned_data['content']
+            if status=='Approve':
+                blog.status=1
+            else:
+                ac = AdminComment(blog=blog,comment=content)
+                ac.save()
+        elif form2.is_valid():
+            pass
+        
+    if blog.status == 0:
+        form = AdminCommentForm()
+    else:
+        form = CommentForm()
+    return render(request,'blog/blogDetail.html',{'blog':blog,'form':form})
+>>>>>>> upstream/main

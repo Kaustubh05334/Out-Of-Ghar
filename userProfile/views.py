@@ -4,7 +4,6 @@ from accounts.models import Profile
 from blog.models import BlogPost
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# Retrieve a user with username "johndoe"
 
 def profile_page(request):
     user = request.user
@@ -39,6 +38,11 @@ def profile_page(request):
 def profile_view(request):
     user = request.user
     profile = Profile.objects.get(user=user)
+<<<<<<< HEAD
     blog_posts = BlogPost.objects.filter(user=user)
     return render(request, 'userProfile/profile.html', {'blog_posts': blog_posts,'profile': profile})
 
+=======
+    blog_posts = BlogPost.objects.filter(user=user,status=1)
+    return render(request, 'userProfile/profile.html', {'blog_posts': blog_posts,'profile': profile})
+>>>>>>> upstream/main

@@ -29,7 +29,7 @@ class BlogPost(models.Model):
     content = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     sub_posts = models.ManyToManyField('SubBlogPost', related_name='blog_posts')
-    comments = models.ManyToManyField('Comment',related_name='comment')
+    comments = models.ManyToManyField('Comment',related_name='comment',blank=True)
     status = models.SmallIntegerField(default=0)
     def __str__(self):
         return self.title
@@ -42,3 +42,8 @@ class Like(models.Model):
 
     def __str__(self):
         return f"Like by {self.user.username} at {self.liked_at}"
+    
+
+class AdminComment(models.Model):
+    comment = models.TextField(max_length=400)
+    blog = models.ForeignKey(BlogPost,on_delete=models.CASCADE)

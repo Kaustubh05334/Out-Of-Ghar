@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import homepage
+from .views import homepage,blog_approval
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
 
     #Home page
     path('',homepage,name='home'),
+    path('approve/',blog_approval,name='approve_page'),
 
     #accounts
     path('accounts/',include('accounts.urls')),
