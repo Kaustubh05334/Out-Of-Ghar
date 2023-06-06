@@ -25,6 +25,7 @@ def profile_page(request):
             profile.instagram_link = instagram_link
             if profile_image:
                 profile.profile_image = profile_image
+                print(profile.profile_image)
             profile.facebook_link = facebook_link
             profile.user_bio = user_bio
             profile.mobile_number = mobile_number
@@ -38,11 +39,6 @@ def profile_page(request):
 def profile_view(request):
     user = request.user
     profile = Profile.objects.get(user=user)
-<<<<<<< HEAD
-    blog_posts = BlogPost.objects.filter(user=user)
+    blog_posts = BlogPost.objects.filter(user=user, status=1)
     return render(request, 'userProfile/profile.html', {'blog_posts': blog_posts,'profile': profile})
 
-=======
-    blog_posts = BlogPost.objects.filter(user=user,status=1)
-    return render(request, 'userProfile/profile.html', {'blog_posts': blog_posts,'profile': profile})
->>>>>>> upstream/main

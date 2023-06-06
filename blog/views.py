@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-from re import sub
-from django.shortcuts import render,redirect,get_object_or_404
-from .forms import BlogPostForm
-from .models import BlogPost,SubBlogPost
-=======
+
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
 from .forms import BlogPostForm,CommentForm,AdminCommentForm
-from .models import BlogPost,SubBlogPost,AdminComment
->>>>>>> upstream/main
+from .models import BlogPost, Comment,SubBlogPost,AdminComment
 from django.urls import reverse
+from django.core.files.base import ContentFile
 # Create your views here.
 def blogPostPage(request):
     if request.method == 'POST':
@@ -40,13 +35,6 @@ def blogPostPage(request):
             return redirect(url)
     else:
         return render(request,'blog/blogPost.html',{'form':BlogPostForm})
-<<<<<<< HEAD
-    
-
-
-from django.core.files.base import ContentFile
-=======
->>>>>>> upstream/main
 
 def preview_blog(request, blog_id):
     blog = get_object_or_404(BlogPost, id=blog_id)
@@ -65,11 +53,7 @@ def preview_blog(request, blog_id):
         if thumbnail:
             # Handle thumbnail file upload
             blog.thumbnail.save(thumbnail.name, thumbnail)
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> upstream/main
         blog.save()
 
         for sub_post in sub_posts:
@@ -92,30 +76,42 @@ def preview_blog(request, blog_id):
 
     return render(request, 'blog/blogPreview.html', {'blog': blog, 'sub_posts': sub_posts})
 
+def blog_details(request, blog_id):
+    blog = get_object_or_404(BlogPost, id=blog_id)
+    comments = blog.comments.filter(replies__isnull=False)
 
-<<<<<<< HEAD
-def blog_details(request):
-    return render(request, 'blog/blogDetails.html')
-=======
-def blog_details(request,blog_id):
-    blog= get_object_or_404(BlogPost,id=blog_id)
-    if request.method=='POST':
-        form1=AdminCommentForm(request.POST)
-        form2=CommentForm(request.POST)
+    if request.method == 'POST':
+        form1 = AdminCommentForm(request.POST)
+        form2 = CommentForm(request.POST)
+
         if form1.is_valid():
             status = form1.cleaned_data['status']
             content = form1.cleaned_data['content']
-            if status=='Approve':
-                blog.status=1
+
+            if status == 'Approve':
+                blog.status = 1
+                blog.save()
+                return redirect('home')
             else:
-                ac = AdminComment(blog=blog,comment=content)
+                ac = AdminComment(comment=content, blog=blog)
                 ac.save()
+                return redirect('home')
         elif form2.is_valid():
-            pass
-        
-    if blog.status == 0:
-        form = AdminCommentForm()
+            comment_id = request.POST.get('comment_id')
+            reply_to = Comment.objects.get(id=comment_id) if comment_id else None
+
+            new_comment = Comment(user=request.user, text=form2.cleaned_data['content'])
+            new_comment.save()
+
+            if reply_to:
+                reply_to.replies.add(new_comment)
+                reply_to.save()
+
+            blog.comments.add(reply_to)
+            blog.save()
+
+            return redirect('profile_view')
     else:
-        form = CommentForm()
-    return render(request,'blog/blogDetail.html',{'blog':blog,'form':form})
->>>>>>> upstream/main
+        form = AdminCommentForm() if blog.status == 0 else CommentForm()
+
+    return render(request, 'blog/blogDetail.html', {'blog': blog, 'form': form, 'comments': comments, 'ac': AdminComment.objects.filter(blog=blog)})
