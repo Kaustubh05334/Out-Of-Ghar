@@ -27,6 +27,23 @@
             {% endif %}
         {% endfor %}
 
+        
+        {% if blog.status == 0 %}
+            {% if request.user.is_superuser %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit">
+            </form>
+            {% endif %}
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" url= "home">
+            </form>
+        {% endif %}
+
         {% for comment in comments %}
     <div class="comment">
         {{forloop.counter}}. {{ comment.user.username }}
@@ -36,7 +53,6 @@
                 {{ comment.created_at }}
             </span>
         </p>
-        
             <p>Total Replies:</p>
         <p class="font-weight-bold">
             {% for reply in comment.replies.all %}
@@ -83,19 +99,6 @@
 {% endfor %}
 
 
-        {% if blog.status == 0 %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit">
-            </form>
-        {% elif request.user %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" url= "home">
-            </form>
-        {% endif %}
     </div>
 </body>
 </html>
