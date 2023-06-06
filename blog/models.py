@@ -6,7 +6,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=None,related_name='comments')
     id = models.AutoField(primary_key=True,auto_created=True,verbose_name='ID',serialize=False)
     text = models.TextField(max_length=255)
-    replies = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='replied_to')
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     created_at = models.DateTimeField(auto_now_add=True)
 
 

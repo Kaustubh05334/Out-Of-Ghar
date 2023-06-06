@@ -86,6 +86,7 @@ def blog_details(request,blog_id):
             content = form1.cleaned_data['content']
             if status=='Approve':
                 blog.status=1
+                blog.save()
             else:
                 ac = AdminComment(blog=blog,comment=content)
                 ac.save()

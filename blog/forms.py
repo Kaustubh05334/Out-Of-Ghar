@@ -79,7 +79,7 @@ class CommentForm(forms.Form):
     attrs ={
         'class':'form-control',
         'placeholder':'Comment here !',
-        'rows':4,
+        'rows':3,
         'cols':50
     }))
 
