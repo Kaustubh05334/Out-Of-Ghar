@@ -1,4 +1,4 @@
-
+from django.db.models import Q
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
 from .forms import BlogPostForm,CommentForm,AdminCommentForm
 from .models import BlogPost, Comment,SubBlogPost,AdminComment
@@ -117,3 +117,28 @@ def blog_details(request, blog_id):
 
     comments = blog.comments.all()
     return render(request, 'blog/blogDetail.html', {'blog': blog, 'form': form, 'comments': comments, 'ac': AdminComment.objects.filter(blog=blog)})
+
+def delete_blog(request, blog_id):
+    blog = get_object_or_404(BlogPost, id=blog_id)
+    
+    if request.method == 'POST':
+        blog.delete()
+        return redirect('home')
+    return render(request, 'blog/confirmDelete.html', {'blog': blog})
+
+def delete_comment(request, blog_id, comment_id):
+    blog = get_object_or_404(BlogPost, id=blog_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('blog_details', blog_id=blog_id)
+    return render(request, 'blog/confirmDelete.html', {'blog': blog, 'comment': comment})
+    
+def search(request):
+    query = request.GET.get('search')
+    if query:
+        blogs = BlogPost.objects.filter(Q(title__icontains=query) | Q(location__icontains=query))
+    else:
+        blogs = []
+    return render(request, 'blog/search.html', {'blogs': blogs, 'query': query})

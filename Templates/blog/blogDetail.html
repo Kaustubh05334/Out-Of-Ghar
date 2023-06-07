@@ -26,8 +26,7 @@
                 <p>{{ subpost.text }}</p>
             {% endif %}
         {% endfor %}
-
-        
+    
         {% if blog.status == 0 %}
             {% if request.user.is_superuser %}
             <form method="post">
@@ -37,13 +36,14 @@
             </form>
             {% endif %}
         {% else %}
+            {% if request.user.is_anonymous is False %}
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Submit" url= "home">
             </form>
-        {% endif %}
-
+            {% endif %}
+            {% endif %}
         {% for comment in comments %}
     <div class="comment">
         {{forloop.counter}}. {{ comment.user.username }}
@@ -68,7 +68,7 @@
             </div>
         {% endfor %}
         </p>
-
+        {% if request.user.is_anonymous is False %}
         <div class="reply-form">
             <form method="post">
                 {% csrf_token %}
@@ -78,6 +78,7 @@
             </form>
         </div>
 
+        {% endif %}
         
 
         <!-- {% if comment.replies.exists %}
@@ -98,7 +99,7 @@
     </div>
 {% endfor %}
 
-
+<a href="{% url 'home' %}">Back to Home</a>
     </div>
 </body>
 </html>

@@ -154,6 +154,7 @@
         {% endfor %}
 
         <input class="save-button" type="submit" value="Save Blog">
+        <a href="{% url 'delete_blog' blog.id %}">Delete Blog</a>
     </form>
 
     <a href="{% url 'home' %}">Home</a>
