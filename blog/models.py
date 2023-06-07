@@ -6,9 +6,11 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=None,related_name='comments')
     id = models.AutoField(primary_key=True,auto_created=True,verbose_name='ID',serialize=False)
     text = models.TextField(max_length=255)
-    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+    replies = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='replied_to')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.user.unsername} comment'
 
 class SubBlogPost(models.Model):
     id = models.AutoField(primary_key=True,auto_created=True,verbose_name='ID',serialize=False)
@@ -41,7 +43,7 @@ class Like(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE,blank=True)
 
     def __str__(self):
-        return f"Like by {self.user.username} at {self.liked_at}"
+        return f"{self.user.username} liked {self.blog_post}"
     
 
 class AdminComment(models.Model):

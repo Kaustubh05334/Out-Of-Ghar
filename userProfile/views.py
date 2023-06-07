@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from accounts.models import Profile
 from blog.models import BlogPost
+from .models import Notification
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -38,5 +39,11 @@ def profile_page(request):
 def profile_view(request):
     user = request.user
     profile = Profile.objects.get(user=user)
-    blog_posts = BlogPost.objects.filter(user=user,status=1)
-    return render(request, 'userProfile/profile.html', {'blog_posts': blog_posts,'profile': profile})
+    blog_posts = BlogPost.objects.filter(user=user)
+    notification = Notification.objects.filter(recipient=user)
+    context={
+        'blog_posts': blog_posts,
+        'profile': profile,
+        'notifications':notification,
+    }
+    return render(request, 'userProfile/profile.html', context)

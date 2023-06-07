@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404,HttpResponse
 from .forms import BlogPostForm,CommentForm,AdminCommentForm
-from .models import BlogPost,SubBlogPost,AdminComment
+from .models import BlogPost,SubBlogPost,AdminComment,Comment
 from django.urls import reverse
+from userProfile.models import Notification
 # Create your views here.
 def blogPostPage(request):
     if request.method == 'POST':
@@ -76,25 +77,48 @@ def preview_blog(request, blog_id):
     return render(request, 'blog/blogPreview.html', {'blog': blog, 'sub_posts': sub_posts})
 
 
-def blog_details(request,blog_id):
-    blog= get_object_or_404(BlogPost,id=blog_id)
-    if request.method=='POST':
-        form1=AdminCommentForm(request.POST)
-        form2=CommentForm(request.POST)
+def blog_details(request, blog_id):
+    blog = get_object_or_404(BlogPost, id=blog_id)
+    
+    if request.method == 'POST':
+        form1 = AdminCommentForm(request.POST)
+        form2 = CommentForm(request.POST)
+
         if form1.is_valid():
             status = form1.cleaned_data['status']
             content = form1.cleaned_data['content']
-            if status=='Approve':
-                blog.status=1
+
+            if status == 'Approve':
+                blog.status = 1
                 blog.save()
+                notf = Notification(recipient=blog.user,message=f'The blog titled {blog.title} approved')
+                notf.save()
+                return redirect('home')
             else:
-                ac = AdminComment(blog=blog,comment=content)
+                ac = AdminComment(comment=content, blog=blog)
                 ac.save()
+                notf = Notification(recipient=blog.user,message=f'The blog titled {blog.title} rejected')
+                notf.save()
+                return redirect('home')
         elif form2.is_valid():
-            pass
-        
-    if blog.status == 0:
-        form = AdminCommentForm()
+            comment_id = request.POST.get('comment_id')
+            reply_to = Comment.objects.get(id=comment_id) if comment_id else None
+
+            new_comment = Comment(user=request.user, text=form2.cleaned_data['content'])
+            new_comment.save()
+
+            if reply_to:
+                reply_to.replies.add(new_comment)
+                reply_to.save()
+
+            else:
+                blog.comments.add(new_comment)
+                blog.save()
+
+            url = reverse('blog_details', kwargs={'blog_id': blog_id})
+            return redirect(url)    
     else:
-        form = CommentForm()
-    return render(request,'blog/blogDetail.html',{'blog':blog,'form':form})
+            form = AdminCommentForm() if blog.status == 0 else CommentForm()
+
+    comments = blog.comments.all()
+    return render(request, 'blog/blogDetail.html', {'blog': blog, 'form': form, 'comments': comments, 'ac': AdminComment.objects.filter(blog=blog)})

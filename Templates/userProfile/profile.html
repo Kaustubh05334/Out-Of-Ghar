@@ -92,14 +92,18 @@
                         <p><strong>Location:</strong> {{ blog_post.location }}</p>
                         <p><strong>Created at:</strong> {{ blog_post.created_at }}</p>
                         <!-- Display other relevant information from the BlogPost model -->
-                        <a href="{% url 'blog_preview' blog_post.id %}" class="btn btn-primary">Read More</a>
+                        <a href="{% url 'blog_details' blog_post.id %}" class="btn btn-primary">Read More</a>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-
+    <div>
+        {% for notf in notifications %}
+            <p>{{notf.message}}</p>
+        {% endfor %}
+    </div>
     <!-- Bootstrap JS (optional, if you need to use Bootstrap components) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>

@@ -13,30 +13,74 @@
         <img style="width:100%" src="{{ blog.thumbnail.url }}" alt="My Image">
         <p>{{ blog.content }}</p>
         {% for subpost in blog.sub_posts.all %}
-        {% if subpost.subheading %}
-        <h2>{{ subpost.subheading }}</h2>
-        {% endif %}
-        {% if subpost.location %}
-        <h4 style="color:blue;">{{ subpost.location }}</h4>
-        {% endif %}
-        {% if subpost.image %}
-        <img style="width:100%" src="{{ subpost.image.url }}" alt="My Image">
-        {% endif %}
-        {% if subpost.text %}
-        <p>{{ subpost.text }}</p>
-        {% endif %}
-        {% endfor %}
-        <form method='post'>
-            {% csrf_token %}
-            {% if blog.status %}
-                {{form.as_p}}
-            {% else %}
-                {% if user.is_superuser %}
-                    {{form.as_p}}
-                {% endif %}
+            {% if subpost.subheading %}
+                <h2>{{ subpost.subheading }}</h2>
             {% endif %}
-            <button type="submit">Submit</button>
-        </form>
+            {% if subpost.location %}
+                <h4 style="color:blue;">{{ subpost.location }}</h4>
+            {% endif %}
+            {% if subpost.image %}
+                <img style="width:100%" src="{{ subpost.image.url }}" alt="My Image">
+            {% endif %}
+            {% if subpost.text %}
+                <p>{{ subpost.text }}</p>
+            {% endif %}
+        {% endfor %}
+
+        
+        {% if blog.status == 0 %}
+            {% if request.user.is_superuser %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit">
+            </form>
+            {% endif %}
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" url= "home">
+            </form>
+        {% endif %}
+
+        {% for comment in comments %}
+    <div class="comment">
+        {{forloop.counter}}. {{ comment.user.username }}
+        <p class="font-weight-bold">
+            <p>{{ comment.text }}</p>
+            <span class="text-muted font-weight-normal">
+                {{ comment.created_at }}
+            </span>
+        </p>
+            <p>Total Replies:</p>
+        <p class="font-weight-bold">
+            {% for reply in comment.replies.all %}
+            <div class="reply">
+                {{forloop.counter}}.
+                {{ reply.user.username }}
+                <p class="font-weight-bold">
+                    <p>{{ reply.text }}</p>
+                    <span class="text-muted font-weight-normal">
+                        {{ reply.created_at }}
+                    </span>
+                </p>
+            </div>
+        {% endfor %}
+        </p>
+
+        <div class="reply-form">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                <input type="submit" value="Reply">
+            </form>
+        </div>
+    </div>
+{% endfor %}
+
+
     </div>
 </body>
 </html>
