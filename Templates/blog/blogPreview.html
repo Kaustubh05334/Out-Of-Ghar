@@ -152,7 +152,7 @@
                 <p>Text: <input type="text" name="text{{ sub_post.id }}" value="{{ sub_post.text}}"></p>
             </div>
         {% endfor %}
-
+        <a href="{% url 'delete_blog' blog.id %}">Delete Blog</a>
         <input class="save-button" type="submit" value="Save Blog">
     </form>
 

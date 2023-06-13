@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: -8px;
+            margin-bottom: 0px;
+          }          
+    </style>
 </head>
 <body>
     {% if error %}
@@ -12,8 +20,31 @@
     {% endif %}
     <form method="post">
         {% csrf_token %}
+        <p id="errorText" class="error-message"></p>
         {{ form.as_p }}
         <button type="submit">Create User</button>
-    </form>  
+    </form>
+    <script>
+        var inputField = document.getElementById("username");
+        var errorText = document.getElementById("errorText");
+        var submitButton = document.querySelector("button[type='submit']");
+        inputField.addEventListener("input", function() {
+          var inputValue = inputField.value;
+          var alphanumericPattern = /^[a-zA-Z0-9]+$/;
+          
+          if (!inputValue.match(alphanumericPattern)) {
+            // Value is invalid
+            inputField.classList.add("invalid");
+            errorText.textContent = "Invalid value. Only alphanumeric characters are allowed.";
+            submitButton.disabled = true; // Disable the submit button
+          } else {
+            // Value is valid
+            inputField.classList.remove("invalid");
+            errorText.textContent = "";
+            submitButton.disabled = false;
+          }
+        });
+        
+    </script>
 </body>
 </html>

@@ -11,7 +11,7 @@ class LoginForm(AuthenticationForm):
 
 class CreateUserForm(forms.Form):
     username = forms.CharField(label='Username', max_length=20,widget=forms.TextInput(attrs={
-                                   'class': 'inpuser', 'name': 'username'
+                                   'class': 'inpuser', 'id':'username','name': 'username'
                                 })
                                 )
     email = forms.EmailField(label='Email Id', max_length=30, widget=forms.EmailInput(attrs={

@@ -27,7 +27,6 @@
             {% endif %}
         {% endfor %}
 
-        
         {% if blog.status == 0 %}
             {% if request.user.is_superuser %}
             <form method="post">
@@ -37,50 +36,60 @@
             </form>
             {% endif %}
         {% else %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" url= "home">
-            </form>
+            {% if request.user.is_anonymous is False %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Comment" url= "home">
+                </form>
+            {% endif %}
         {% endif %}
-
         {% for comment in comments %}
-    <div class="comment">
-        {{forloop.counter}}. {{ comment.user.username }}
-        <p class="font-weight-bold">
-            <p>{{ comment.text }}</p>
-            <span class="text-muted font-weight-normal">
-                {{ comment.created_at }}
-            </span>
-        </p>
-            <p>Total Replies:</p>
-        <p class="font-weight-bold">
-            {% for reply in comment.replies.all %}
-            <div class="reply">
-                {{forloop.counter}}.
-                {{ reply.user.username }}
+            <div class="comment">
+                {{ comment.user.username }} <span class="text-muted font-weight-normal" style="font-size:10px;">
+                    {{ comment.created_at|timesince }} ago
+                </span>
                 <p class="font-weight-bold">
-                    <p>{{ reply.text }}</p>
-                    <span class="text-muted font-weight-normal">
-                        {{ reply.created_at }}
-                    </span>
+                    <p>{{ comment.text }}</p>
+                    
                 </p>
+                <p class="font-weight-bold" style="{margin-left:40px;}">
+                    {% for reply in comment.replies.all %}
+                    <div class="reply">
+                        {{ reply.user.username }} <span class="text-muted font-weight-normal" style="font-size:10px;">
+                            {{ reply.created_at|timesince }} ago
+                        </span>
+                        <p class="font-weight-bold">
+                            <p>{{ reply.text }}</p>
+                        </p>
+                        {% if request.user.is_anonymous is False %}
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <input type="hidden" name="reply_id" value="{{ reply.id }}">
+                                <input type="submit" value="Reply_reply">
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                </p>
+                {% if request.user.is_anonymous is False %}
+                <div class="reply-form">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        <input type="hidden" name="reply_id" value="{{ None }}">
+                        <input type="submit" value="Reply">
+                    </form>
+                </div>
+
+                {% endif %}
             </div>
         {% endfor %}
-        </p>
 
-        <div class="reply-form">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                <input type="submit" value="Reply">
-            </form>
-        </div>
-    </div>
-{% endfor %}
-
-
+<a href="{% url 'home' %}">Back to Home</a>
     </div>
 </body>
 </html>

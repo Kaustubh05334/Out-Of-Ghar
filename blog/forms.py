@@ -96,3 +96,13 @@ class AdminCommentForm(forms.Form):
         'rows':4,
         'cols':50,
     }))
+
+
+class ReplyForm(forms.Form):
+    content = forms.CharField(label ="", widget = forms.Textarea(
+    attrs ={
+        'class':'form-control',
+        'placeholder':'reply!',
+        'rows':1,
+        'cols':50
+    }))

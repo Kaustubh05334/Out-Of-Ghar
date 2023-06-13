@@ -10,7 +10,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user.unsername} comment'
+        return f'{self.user.username}'
 
 class SubBlogPost(models.Model):
     id = models.AutoField(primary_key=True,auto_created=True,verbose_name='ID',serialize=False)
