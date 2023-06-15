@@ -111,7 +111,9 @@
     <div>
         {% for notf in notifications %}
             <p>{{notf.message}}</p>
-        {% endfor %}
+            <a href="{{notf.link}}">here is link</a>
+        {% endfor %}<br>
+        <a href="{% url 'all_notf' %}">view all notification</a>
     </div>
     <!-- Bootstrap JS (optional, if you need to use Bootstrap components) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

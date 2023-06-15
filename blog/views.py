@@ -1,11 +1,25 @@
 from django.db.models import Q
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,HttpResponseRedirect
 from .forms import BlogPostForm,CommentForm,AdminCommentForm,ReplyForm
 from .models import BlogPost,SubBlogPost,AdminComment,Comment
 from django.urls import reverse
 from userProfile.models import Notification
 # Create your views here.
 
+
+def like_blog(request,blog_id):
+    blog = get_object_or_404(BlogPost, id=blog_id)
+    is_liked = blog.likes.filter(id=request.user.id).exists()
+    url = reverse('blog_details', kwargs={'blog_id': blog_id})
+    if is_liked:
+        blog.likes.remove(request.user)
+    else:
+        notf = Notification(recipient=blog.user,message=f'{request.user} liked your blog {blog.title}',link=url)
+        notf.save()
+        blog.likes.add(request.user)
+    blog.save()
+    
+    return HttpResponseRedirect(url)
 
 def blogPostPage(request):
     if request.method == 'POST':
@@ -83,6 +97,8 @@ def preview_blog(request, blog_id):
 def blog_details(request, blog_id):
     
     blog = get_object_or_404(BlogPost, id=blog_id)
+    is_liked = blog.likes.filter(id=request.user.id).exists()
+    like_count = blog.total_likes()
     if request.method == 'POST':
         form1 = AdminCommentForm(request.POST)
         form2 = CommentForm(request.POST)
@@ -94,13 +110,13 @@ def blog_details(request, blog_id):
             if status == 'Approve':
                 blog.status = 1
                 blog.save()
-                notf = Notification(recipient=blog.user,message=f'The blog titled {blog.title} approved')
+                notf = Notification(recipient=blog.user,message=f'The blog titled {blog.title} approved',link=reverse('blog_details', kwargs={'blog_id': blog_id}))
                 notf.save()
                 return redirect('approve_page')
             else:
                 ac = AdminComment(comment=content, blog=blog)
                 ac.save()
-                notf = Notification(recipient=blog.user,message=f'The blog titled {blog.title} rejected')
+                notf = Notification(recipient=blog.user,message=f'The blog titled {blog.title} rejected',link=reverse('rejected_notf',kwargs={'ad_id':ac.id}))
                 notf.save()
                 return redirect('approve_page')
         elif form2.is_valid():
@@ -110,14 +126,16 @@ def blog_details(request, blog_id):
             user=request.user
 
             if reply_id != "None" and reply_id is not None:
-                
-                new_comment = Comment(user=user, text=f"@{reply_to.user.username} {form2.cleaned_data['content']}")
+                reply_at_id=Comment.objects.get(id=reply_id)
+                new_comment = Comment(user=user, text=f"@{reply_at_id.user.username} {form2.cleaned_data['content']}")
                 new_comment.save()
                 
                 reply_at_comment = Comment.objects.get(id=comment_id)
                 reply_at_comment.replies.add(new_comment)
                 reply_at_comment.save()
-                url = reverse('blog_details', kwargs={'blog_id': blog_id})
+                url = reverse('blog_details', kwargs={'blog_id': blog_id})+f"#reply{new_comment.id}"
+                notf = Notification(recipient=reply_at_id.user,message=f'{request.user} tagged you',link=url)
+                notf.save()
                 return redirect(url)
             else:
                 new_comment = Comment(user=user, text=form2.cleaned_data['content'])
@@ -125,9 +143,18 @@ def blog_details(request, blog_id):
                 if reply_to:
                     reply_to.replies.add(new_comment)
                     reply_to.save()
+                    url = reverse('blog_details', kwargs={'blog_id': blog_id})+f'reply{new_comment.id}'
+                    if reply_to is not None:
+                        notf = Notification(recipient=reply_to.user,message=f'{request.user} replied on your comment',link=url)
+                        notf.save()
                 else:
                     blog.comments.add(new_comment)
                     blog.save()
+                    url = reverse('blog_details', kwargs={'blog_id': blog_id})+f'comment{new_comment.id}'
+                    if reply_to is not None:
+                        notf = Notification(recipient=blog.user,message=f'{request.user} commented on your blog',link=url)
+                        notf.save()                   
+
                 url = reverse('blog_details', kwargs={'blog_id': blog_id})
                 return redirect(url)
     else:
@@ -138,6 +165,8 @@ def blog_details(request, blog_id):
         'form': form,
         'comments': comments,
         'ac': AdminComment.objects.filter(blog=blog),
+        'is_liked':is_liked,
+        'like_count':like_count,
     }
     return render(request, 'blog/blogDetail.html', context)
 

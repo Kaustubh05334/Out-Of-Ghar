@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog rejected</title>
+</head>
+<body>
+    your blog titled {{bp.title}} has been rejected for the following reason
+    {{ac.comment}}
+    <a href="{% url 'blog_details' bp.id %}"></a>
+</body>
+</html>

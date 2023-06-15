@@ -25,7 +25,7 @@ class SubBlogPost(models.Model):
 class BlogPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=None,related_name='blog_posts')
     id = models.AutoField(primary_key=True,auto_created=True,verbose_name='ID',serialize=False)
-    thumbnail = models.ImageField(upload_to='thumbnailImages/')#,default='download.jpg')
+    thumbnail = models.ImageField(upload_to='thumbnailImages/')
     location = models.CharField(max_length=50,blank=True)
     title = models.CharField(max_length=100)
     content = models.TextField(blank=True)
@@ -33,18 +33,13 @@ class BlogPost(models.Model):
     sub_posts = models.ManyToManyField('SubBlogPost', related_name='blog_posts')
     comments = models.ManyToManyField('Comment',related_name='comment',blank=True)
     status = models.SmallIntegerField(default=0)
-    def __str__(self):
-        return self.title
-    
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    liked_at = models.DateTimeField(auto_now_add=True)
-    blog_post = models.ForeignKey(BlogPost, on_delete=models.CASCADE,blank=True)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE,blank=True)
+    likes = models.ManyToManyField(User,related_name='user',blank=True)
 
     def __str__(self):
-        return f"{self.user.username} liked {self.blog_post}"
+        return f'{self.title} by {self.user.username}'
     
+    def total_likes(self):
+        return self.likes.count()
 
 class AdminComment(models.Model):
     comment = models.TextField(max_length=400)
