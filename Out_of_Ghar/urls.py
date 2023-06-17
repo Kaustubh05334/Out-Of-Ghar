@@ -19,21 +19,26 @@ from django.urls import path,include
 from .views import homepage,blog_approval
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-
 
     #Home page
     path('',homepage,name='home'),
     path('approve/',blog_approval,name='approve_page'),
 
     #accounts
-    path('accounts/',include('accounts.urls')),
+    path('account/',include('accounts.urls')),
 
     #blog
     path('blog/',include('blog.urls')),
 
     #userProfile
-    path('userProfile/',include('userProfile.urls'))
+    path('userProfile/',include('userProfile.urls')),
+
+    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.socialaccount.urls')),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

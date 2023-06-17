@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User
 from accounts.models import Profile
 from blog.models import BlogPost
@@ -10,7 +10,7 @@ def profile_page(request):
     try:
         profile = Profile.objects.get(user=user)
     except Profile.DoesNotExist:
-        profile = None
+        profile = None 
 
     if request.method == 'POST':
         instagram_link = request.POST.get('instagram_link')
@@ -38,7 +38,10 @@ def profile_page(request):
 
 def profile_view(request):
     user = request.user
-    profile = Profile.objects.get(user=user)
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile = Profile.objects.create_profile(user=user, mobile_number='xxxx-xxx-xxx')
     blog_posts = BlogPost.objects.filter(user=user)
     return render(request, 'userProfile/profile.html', {'blog_posts': blog_posts,'profile': profile})
 

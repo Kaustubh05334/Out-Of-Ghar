@@ -46,7 +46,15 @@ INSTALLED_APPS = [
     'accounts',
     'blog',
     'userProfile',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,9 +80,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
 ]
 
 WSGI_APPLICATION = 'Out_of_Ghar.wsgi.application'
@@ -89,6 +104,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
 
 
 # Password validation
@@ -121,11 +138,33 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '981625306277-lv7c7jqt1j1sq2g5r597p73t7b6dp17k.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    },
+    'facebook': {
+        'APP': {
+            'client_id': '981625306277-lv7c7jqt1j1sq2g5r597p73t7b6dp17k.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        },
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -139,7 +178,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://example.com",
     "https://sub.example.com",
     "http://localhost:8080",
-    "http://127.0.0.1:9000",
+    "http://127.0.0.1:8000",
 ]
 """ 
 
@@ -147,3 +186,7 @@ CORS_ALLOWED_ORIGINS = [
 #media paths
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '981625306277-lv7c7jqt1j1sq2g5r597p73t7b6dp17k.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']

@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 </head>
-<body>
+  <body>
     {% if error %}
-        <p>{{error}}</p>
+        <p>{{ error }}</p>
     {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create User</button>
-    </form>  
-</body>
+    <h2>Create an Account</h2>
+    <form method="POST" action="{% url 'register_user' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+    </form>
+    <a href="{% provider_login_url 'google' method= 'oauth2' %}">Sign up with Google</a>
+
+    <p>If already registered, <a href="{% url 'login_page' %}">Sign in</a></p>
+  </body>
 </html>

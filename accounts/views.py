@@ -3,6 +3,8 @@ from .forms import LoginForm,CreateUserForm
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.models import User,auth
 from .models import Profile
+from allauth.socialaccount.models import SocialAccount,SocialApp
+from allauth.account.views import SignupView
 
 def login_page(request):
     if request.method == 'POST':
@@ -41,8 +43,9 @@ def register_user(request):
         else:
             return render(request,'accounts/register.html',{'error':'Password do not match','form':CreateUserForm})
     else:
-        return render(request,'accounts/register.html',{'form':CreateUserForm})
-        
+        return render(request, 'accounts/register.html', {'form': CreateUserForm})
+    
+
 def logout_page(request):
     logout(request)
     return redirect(reverse('home'))

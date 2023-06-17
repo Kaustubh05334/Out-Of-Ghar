@@ -12,6 +12,10 @@
         <h3 style="color:blue;">{{ blog.location }}</h3>
         <img style="width:100%" src="{{ blog.thumbnail.url }}" alt="My Image">
         <p>{{ blog.content }}</p>
+
+        <div style="position: absolute; top: 10px; left: 10px;">
+            <a href="{% url 'report_blog' blog.id %}">Report blog...</a>
+        </div>
         {% for subpost in blog.sub_posts.all %}
             {% if subpost.subheading %}
                 <h2>{{ subpost.subheading }}</h2>
@@ -26,7 +30,7 @@
                 <p>{{ subpost.text }}</p>
             {% endif %}
         {% endfor %}
-    
+
         {% if blog.status == 0 %}
             {% if request.user.is_superuser %}
             <form method="post">
@@ -37,67 +41,137 @@
             {% endif %}
         {% else %}
             {% if request.user.is_anonymous is False %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" url= "home">
-            </form>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Comment" url= "home">
+                </form>
             {% endif %}
-            {% endif %}
+        {% endif %}
+
+        <p>Likes: <span id="like-count">{{ like_count }}</span></p>
+
+  {% if user.is_authenticated %}
+    {% if likes %}
+      <button id="like-button" data-blog-id="{{ blog.id }}" data-liked="true">Unlike</button>
+    {% else %}
+      <button id="like-button" data-blog-id="{{ blog.id }}" data-liked="false">Like</button>
+    {% endif %}
+  {% else %}
+    <p>Please log in to like this blog post.</p>
+  {% endif %}
+  
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var likedStatus = sessionStorage.getItem('likedStatus');
+      if (likedStatus === 'true') {
+        $('#like-button').text('Unlike');
+        $('#like-button').data('liked', true);
+      } else {
+        $('#like-button').text('Like');
+        $('#like-button').data('liked', false);
+      }
+      
+      $('#like-button').click(function() {
+        var blogId = $(this).data('blog-id');
+        var liked = $(this).data('liked');
+        
+        $.ajax({
+          type: 'POST',
+          url: '{% url "liked" blog_id=blog.id %}',
+          data: {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'blog_id': blogId
+          },
+          success: function(response) {
+            var likeCount = response.like_count;
+            $('#like-count').text(likeCount);
+            
+            if (liked) {
+              $('#like-button').text('Like');
+              $('#like-button').data('liked', false);
+              sessionStorage.setItem('likedStatus', false);
+            } else {
+              $('#like-button').text('Unlike');
+              $('#like-button').data('liked', true);
+              sessionStorage.setItem('likedStatus', true);
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+          }
+        });
+      });
+    });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        type: 'GET',
+        url: '{% url "liked" blog_id=blog.id %}',
+        success: function(response) {
+          var likeCount = response.like_count;
+          $('#like-count').text(likeCount);
+        },
+        error: function(xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  </script>
+            
+        <h3>Comments</h3>
         {% for comment in comments %}
-    <div class="comment">
-        {{forloop.counter}}. {{ comment.user.username }}
-        <p class="font-weight-bold">
-            <p>{{ comment.text }}</p>
-            <span class="text-muted font-weight-normal">
-                {{ comment.created_at }}
-            </span>
-        </p>
-            <p>Total Replies:</p>
-        <p class="font-weight-bold">
-            {% for reply in comment.replies.all %}
-            <div class="reply">
-                {{forloop.counter}}.
-                {{ reply.user.username }}
+            <div class="comment" id="comment_div">
+                <p>
+                {{ comment.user.username }} <span class="text-muted font-weight-normal" style="font-size:10px;">
+                    {{ comment.created_at|timesince }} ago
+                </span>
                 <p class="font-weight-bold">
-                    <p>{{ reply.text }}</p>
-                    <span class="text-muted font-weight-normal">
-                        {{ reply.created_at }}
-                    </span>
+                    <p>{{ comment.text }}</p>    
                 </p>
+                {% for reply in comment.replies.all %}
+                <div class="reply">
+                    {{ reply.user.username }} <span class="text-muted font-weight-normal" style="font-size:10px;">
+                        {{ reply.created_at|timesince }} ago
+                    </span>
+                    <p class="font-weight-bold">
+                        <p>{{ reply.text }}</p>
+                    </p>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        <input type="hidden" name="reply_id" value="{{ reply.id }}">
+                        <input type="submit" value="Reply to Comment">
+                    </form>
+                    {% for nested_reply in reply.replies.all %}
+                        <div class="nested-reply">
+                            {{ nested_reply.user.username }} <span class="text-muted font-weight-normal" style="font-size:10px;">
+                                {{ nested_reply.created_at|timesince }} ago
+                            </span>
+                            <p class="font-weight-bold">
+                                <p>{{ nested_reply.text }}</p>
+                            </p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ replyform.as_p }}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <input type="hidden" name="reply_id" value="{{ nested_reply.id }}">
+                                <input type="submit" value="Reply to Nested Reply">
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            
+                </p>
+
             </div>
         {% endfor %}
-        </p>
-        {% if request.user.is_anonymous is False %}
-        <div class="reply-form">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                <input type="submit" value="Reply">
-            </form>
-        </div>
-
-        {% endif %}
-        
-
-        <!-- {% if comment.replies.exists %}
-            <div class="nested-replies">
-                {% for reply in comment.replies.all %}
-                    <div class="nested-reply">
-                        <p>{{ reply.text }}</p>
-                        <p class="font-weight-bold">
-                            {{ reply.user.username }}
-                            <span class="text-muted font-weight-normal">
-                                {{ reply.created_at }}
-                            </span>
-                        </p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %} -->
-    </div>
-{% endfor %}
 
 <a href="{% url 'home' %}">Back to Home</a>
     </div>

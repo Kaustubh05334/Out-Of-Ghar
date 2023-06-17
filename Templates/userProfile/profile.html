@@ -70,13 +70,19 @@
             <div class="col-md-3">
                 <!-- Profile Box -->
                 <div class="profile-card">
-                    <h2>{{ profile.user.username }}</h2>
+                    <h2>{{ user.username }} or {{ user.socialaccount_set.all.0.extra_data.name }}</h2>
+                    {% if profile.mobile_number %}
                     <p><strong>Mobile Number:</strong> {{ profile.mobile_number }}</p>
+                    {% else %}
+                    <p>Mobile number: {{ user.socialaccount_set.all.0.extra_data.phone_number }} </p>
+                    {% endif %}
                     <p><strong>Bio:</strong> {{ profile.user_bio }}</p>
                     <p><strong>Instagram:</strong> <a href="{{ profile.instagram_link }}">Insta</a></p>
                     <p><strong>Facebook:</strong> <a href="{{ profile.facebook_link }}">Fb</a></p>
                     {% if profile.profile_image %}
-                    <p>Profile Pic: <img src="{{ profile.profile_image.url }}" alt="Profile Picture"></p> 
+                    <p>Profile Pic: <img src="{{ profile.profile_image.url }}" alt="Profile Picture"></p>
+                    {% else %}
+                    <img src = "{{ user.socialaccount_set.all.0.extra_data.picture }}" alt="Profile Pic"> 
                     {% endif %}
                     <a href="{% url 'profile_page' %}" class="btn btn-primary">Edit Profile</a>
                 </div>

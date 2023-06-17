@@ -37,8 +37,8 @@ class BlogPost(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     liked_at = models.DateTimeField(auto_now_add=True)
-    blog_post = models.ForeignKey(BlogPost, on_delete=models.CASCADE,blank=True)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE,blank=True)
+    blog_post = models.ForeignKey(BlogPost, on_delete=models.CASCADE,blank=True,null=True)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
         return f"Like by {self.user.username} at {self.liked_at}"
@@ -47,3 +47,23 @@ class Like(models.Model):
 class AdminComment(models.Model):
     comment = models.TextField(max_length=400)
     blog = models.ForeignKey(BlogPost,on_delete=models.CASCADE)
+
+class Report(models.Model):
+    REPORT_CHOICES = (
+        ('harassment', 'Harassment'),
+        ('bullying', 'Bullying'),
+        ('harmful', 'Harmful Content'),
+        ('sexual', 'Sexual Content'),
+        ('child_abuse', 'Child Abuse'),
+        ('spam', 'Spam'),
+    )
+
+    blog = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE)
+    reason = models.CharField(max_length=255)
+    report_type = models.CharField(max_length=20, choices=REPORT_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    resolved_status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Reported by {self.reporter.username} at {self.blog} for {self.report_type}"

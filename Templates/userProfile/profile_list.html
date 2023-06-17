@@ -70,7 +70,7 @@
     <div class="container">
         <h1>Profile Page</h1>
 
-        <h2>Welcome, {{ profile.user.username }}</h2>
+        <h2>Welcome, {{ user.username }}</h2>
 
         <h3>Edit Profile</h3>
         <form method="post" enctype="multipart/form-data">
@@ -117,15 +117,6 @@
 
             <input type="submit" class="btn btn-primary" value="Update Profile">
         </form>
-
-        
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

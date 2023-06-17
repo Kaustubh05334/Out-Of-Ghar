@@ -10,7 +10,7 @@ class ProfileManager(models.Manager):
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=None,related_name='user_profile') 
-    mobile_number = models.CharField(max_length=13, unique=True)
+    mobile_number = models.CharField(max_length=13, unique=False)
     user_bio = models.TextField(max_length=50,blank=True)
     instagram_link = models.URLField(max_length=50,blank=True)
     facebook_link = models.URLField(max_length=50,blank=True)

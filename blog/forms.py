@@ -96,3 +96,25 @@ class AdminCommentForm(forms.Form):
         'rows':4,
         'cols':50,
     }))
+
+class ReplyForm(forms.Form):
+    content = forms.CharField(label ="", widget = forms.Textarea(
+            attrs ={
+        'class':'form-control',
+        'placeholder':'reply!',
+        'rows':1,
+        'cols':50
+    }))
+
+class ReportForm(forms.Form):
+    REPORT_CHOICES = (
+        ('harassment', 'Harassment'),
+        ('bullying', 'Bullying'),
+        ('harmful', 'Harmful Content'),
+        ('sexual', 'Sexual Content'),
+        ('child_abuse', 'Child Abuse'),
+        ('spam', 'Spam'),
+    )
+
+    report_type = forms.ChoiceField(choices=REPORT_CHOICES)
+    reason = forms.CharField(widget=forms.Textarea)
