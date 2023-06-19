@@ -89,7 +89,6 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
-    
 ]
 
 WSGI_APPLICATION = 'Out_of_Ghar.wsgi.application'
@@ -147,7 +146,7 @@ SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_LOGIN_ON_GET=True
-
+SOCIALACCOUNT_EMAIL_VERIFICATION=True
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -155,15 +154,8 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': '981625306277-lv7c7jqt1j1sq2g5r597p73t7b6dp17k.apps.googleusercontent.com',
             'secret': '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',
             'key': ''
-        }
-    },
-    'facebook': {
-        'APP': {
-            'client_id': '981625306277-lv7c7jqt1j1sq2g5r597p73t7b6dp17k.apps.googleusercontent.com',
-            'secret': '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',
-            'key': ''
         },
-    }
+    },
 }
 
 # Default primary key field type

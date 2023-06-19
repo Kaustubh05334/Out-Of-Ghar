@@ -54,9 +54,11 @@
         
         {% if blogs %}
             {% for blog in blogs %}
+            {% if blog.status == 1 %}
                 <div class="result-item">
                     <h4><a href="{% url 'blog_details' blog.id %}">{{ blog.title }} {{ blog.location }} </a></h4>
                 </div>
+                {% endif %}
             {% endfor %}
         {% else %}
             <p>No results found.</p>
